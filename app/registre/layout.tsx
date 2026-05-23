@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, createContext, useContext } from 'react';
-import AppHeader from '@/components/app/AppHeader';
+import HomeNav from '@/components/home/HomeNav';
 import NotifPanel from '@/components/app/NotifPanel';
 import AuthModal from '@/components/auth/AuthModal';
 import Toast from '@/components/ui/Toast';
@@ -14,17 +14,15 @@ export default function RegistreLayout({ children }: { children: React.ReactNode
   const [authTab,    setAuthTab]    = useState<'login' | 'signup'>('login');
   const [notifsOpen, setNotifsOpen] = useState(false);
   const [notifCount, setNotifCount] = useState(0);
-  const [searchQ,    setSearchQ]    = useState('');
 
   return (
-    <RegistreSearchCtx.Provider value={{ searchQ }}>
+    <RegistreSearchCtx.Provider value={{ searchQ: '' }}>
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
       <Toast />
-      <AppHeader
+      <HomeNav
         onOpenAuth={(tab) => { setAuthTab(tab); setAuthOpen(true); }}
         notifCount={notifCount}
         onToggleNotifs={() => setNotifsOpen(v => !v)}
-        onSearch={setSearchQ}
       />
       <div className="app-main" style={{ position: 'relative' }}>
         {children}

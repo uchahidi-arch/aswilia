@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -62,7 +62,7 @@ export default function ChroniquesPage() {
     <>
       <AboutNavWrapper />
 
-      <main style={{ paddingTop: '64px' }}>
+      <main style={{ paddingTop: '72px' }}>
 
         {/* ── HERO ── */}
         <section style={{
@@ -143,12 +143,12 @@ export default function ChroniquesPage() {
               background: 'rgba(45,122,84,.22)',
               border: '1px solid rgba(45,122,84,.45)',
               color: 'rgba(255,255,255,.7)',
-              fontFamily: 'Outfit, sans-serif',
+              fontFamily: "'Satoshi', sans-serif",
             }}>
               Mémoire &amp; Culture
             </span>
             <h1 style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: "'Satoshi', sans-serif",
               fontSize: 'clamp(2rem, 5vw, 3.5rem)',
               fontWeight: 700,
               color: 'white',
@@ -162,7 +162,7 @@ export default function ChroniquesPage() {
               lineHeight: 1.7,
               maxWidth: '540px',
               color: 'rgba(255,255,255,.6)',
-              fontFamily: 'Outfit, sans-serif',
+              fontFamily: "'Satoshi', sans-serif",
             }}>
               Explorer les histoires et les lignées des familles comoriennes.
             </p>
@@ -177,7 +177,7 @@ export default function ChroniquesPage() {
                 background: 'rgba(45,122,84,.85)',
                 border: '1px solid rgba(76,175,128,.5)',
                 color: 'white',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: '14px',
                 fontWeight: 600,
                 textDecoration: 'none',
@@ -200,7 +200,7 @@ export default function ChroniquesPage() {
               textAlign: 'center',
               padding: '80px 0',
               color: 'var(--t3)',
-              fontFamily: 'Outfit, sans-serif',
+              fontFamily: "'Satoshi', sans-serif",
               fontSize: '15px',
             }}>
               Aucune chronique publiée pour le moment.
@@ -265,14 +265,14 @@ export default function ChroniquesPage() {
                           border: `1px solid ${cs.border}`,
                           color: cs.color,
                           marginBottom: '12px',
-                          fontFamily: 'Outfit, sans-serif',
+                          fontFamily: "'Satoshi', sans-serif",
                         }}>
                           {article.categorie}
                         </span>
 
                         {/* Titre */}
                         <h2 style={{
-                          fontFamily: 'Cormorant Garamond, serif',
+                          fontFamily: "'Satoshi', sans-serif",
                           fontSize: '1.25rem',
                           fontWeight: 700,
                           lineHeight: 1.3,
@@ -288,7 +288,7 @@ export default function ChroniquesPage() {
                             fontSize: '0.875rem',
                             lineHeight: 1.65,
                             color: 'var(--t2)',
-                            fontFamily: 'Outfit, sans-serif',
+                            fontFamily: "'Satoshi', sans-serif",
                             marginBottom: '20px',
                             flex: 1,
                             display: '-webkit-box',
@@ -307,12 +307,12 @@ export default function ChroniquesPage() {
                           justifyContent: 'space-between',
                           fontSize: '11px',
                           color: 'var(--t3)',
-                          fontFamily: 'Outfit, sans-serif',
+                          fontFamily: "'Satoshi', sans-serif",
                           marginTop: 'auto',
                           paddingTop: '12px',
                           borderTop: '1px solid var(--bd)',
                         }}>
-                          <span>✍ {article.auteur}</span>
+                          <span>{article.auteur}</span>
                           <span>
                             {new Date(article.created_at).toLocaleDateString('fr-FR', {
                               day: 'numeric', month: 'long', year: 'numeric',

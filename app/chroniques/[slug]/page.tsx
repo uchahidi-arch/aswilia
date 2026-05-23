@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -118,7 +118,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
     return (
       <>
         <AboutNavWrapper />
-        <main style={{ paddingTop: '64px', minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <main style={{ paddingTop: '72px', minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="spin" />
         </main>
         <HomeFooter />
@@ -130,11 +130,11 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
     return (
       <>
         <AboutNavWrapper />
-        <main style={{ paddingTop: '64px', minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px' }}>
-          <p style={{ fontFamily: 'Cormorant Garamond, serif', fontSize: '2rem', color: 'var(--t1)' }}>
+        <main style={{ paddingTop: '72px', minHeight: '70vh', display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '16px' }}>
+          <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: '2rem', color: 'var(--t1)' }}>
             Chronique introuvable
           </p>
-          <Link href="/chroniques" style={{ color: 'var(--green)', fontFamily: 'Outfit, sans-serif', fontSize: '14px', textDecoration: 'none' }}>
+          <Link href="/chroniques" style={{ color: 'var(--green)', fontFamily: "'Satoshi', sans-serif", fontSize: '14px', textDecoration: 'none' }}>
             ← Retour aux chroniques
           </Link>
         </main>
@@ -159,7 +159,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
         />
       )}
 
-      <main style={{ paddingTop: '64px' }}>
+      <main style={{ paddingTop: '72px' }}>
 
         {/* ── HERO ── */}
         <section style={{
@@ -180,7 +180,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
               <Link href="/chroniques" style={{
                 fontSize: '12px',
                 color: 'rgba(255,255,255,.45)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
                 textDecoration: 'none',
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -193,7 +193,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
                 <div style={{ display: 'flex', gap: '8px' }}>
                   <Link href={`/chroniques/${slug}/modifier`} style={{
                     fontSize: '12px',
-                    fontFamily: 'Outfit, sans-serif',
+                    fontFamily: "'Satoshi', sans-serif",
                     fontWeight: 600,
                     textDecoration: 'none',
                     padding: '5px 14px',
@@ -207,7 +207,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
                   {!confirmDelete ? (
                     <button onClick={() => setConfirmDelete(true)} style={{
                       fontSize: '12px',
-                      fontFamily: 'Outfit, sans-serif',
+                      fontFamily: "'Satoshi', sans-serif",
                       fontWeight: 600,
                       padding: '5px 14px',
                       borderRadius: '100px',
@@ -220,10 +220,10 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
                     </button>
                   ) : (
                     <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
-                      <span style={{ fontSize: '11px', color: 'rgba(255,255,255,.5)', fontFamily: 'Outfit, sans-serif' }}>Confirmer ?</span>
+                      <span style={{ fontSize: '11px', color: 'rgba(255,255,255,.5)', fontFamily: "'Satoshi', sans-serif" }}>Confirmer ?</span>
                       <button onClick={handleDelete} disabled={deleting} style={{
                         fontSize: '12px',
-                        fontFamily: 'Outfit, sans-serif',
+                        fontFamily: "'Satoshi', sans-serif",
                         fontWeight: 600,
                         padding: '5px 14px',
                         borderRadius: '100px',
@@ -236,7 +236,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
                       </button>
                       <button onClick={() => setConfirmDelete(false)} style={{
                         fontSize: '12px',
-                        fontFamily: 'Outfit, sans-serif',
+                        fontFamily: "'Satoshi', sans-serif",
                         padding: '5px 12px',
                         borderRadius: '100px',
                         background: 'rgba(255,255,255,.1)',
@@ -265,14 +265,14 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
               border: '1px solid rgba(255,255,255,.22)',
               color: 'rgba(255,255,255,.8)',
               marginBottom: '20px',
-              fontFamily: 'Outfit, sans-serif',
+              fontFamily: "'Satoshi', sans-serif",
             }}>
               {article.categorie}
             </span>
 
             {/* Titre */}
             <h1 style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: "'Satoshi', sans-serif",
               fontSize: 'clamp(1.75rem, 5vw, 3rem)',
               fontWeight: 700,
               color: 'white',
@@ -288,7 +288,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
                 fontSize: 'clamp(0.9rem, 2vw, 1.0625rem)',
                 lineHeight: 1.75,
                 color: 'rgba(255,255,255,.62)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
                 maxWidth: '600px',
                 margin: '0 auto 24px',
               }}>
@@ -300,14 +300,14 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
             <div style={{
               fontSize: '12px',
               color: 'rgba(255,255,255,.4)',
-              fontFamily: 'Outfit, sans-serif',
+              fontFamily: "'Satoshi', sans-serif",
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
               gap: '12px',
               flexWrap: 'wrap',
             }}>
-              <span>✍ {article.auteur}</span>
+              <span>{article.auteur}</span>
               <span>·</span>
               <span>
                 {new Date(article.created_at).toLocaleDateString('fr-FR', {
@@ -339,12 +339,12 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
               letterSpacing: '.15em',
               marginBottom: '8px',
               color: 'var(--green)',
-              fontFamily: 'Outfit, sans-serif',
+              fontFamily: "'Satoshi', sans-serif",
             }}>
               Arbre illustratif
             </span>
             <h2 style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: "'Satoshi', sans-serif",
               fontSize: 'clamp(1.25rem, 2.5vw, 1.75rem)',
               fontWeight: 700,
               marginBottom: '8px',
@@ -355,7 +355,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
             <p style={{
               fontSize: '13px',
               color: 'var(--t3)',
-              fontFamily: 'Outfit, sans-serif',
+              fontFamily: "'Satoshi', sans-serif",
               marginBottom: '28px',
             }}>
               Cliquez sur une personne pour explorer son arbre généalogique dans le registre.
@@ -419,7 +419,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
                       fontSize: '14px',
                       fontWeight: 700,
                       color: 'var(--t1)',
-                      fontFamily: 'Cormorant Garamond, serif',
+                      fontFamily: "'Satoshi', sans-serif",
                       whiteSpace: 'nowrap',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
@@ -430,7 +430,7 @@ export default function ChroniqueePage({ params }: { params: Promise<{ slug: str
                       <div style={{
                         fontSize: '11px',
                         color: 'var(--t3)',
-                        fontFamily: 'Outfit, sans-serif',
+                        fontFamily: "'Satoshi', sans-serif",
                         marginTop: '2px',
                         whiteSpace: 'nowrap',
                         overflow: 'hidden',

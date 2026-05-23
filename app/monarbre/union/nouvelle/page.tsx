@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -56,7 +56,7 @@ export default function NouvelleUnionPage() {
     <div style={{ flex: 1, overflowY: 'auto', padding: '24px', maxWidth: 540, margin: '0 auto', width: '100%' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
         <button className="btn btn-sec" style={{ fontSize: 11 }} onClick={() => router.back()}>⬅ Retour</button>
-        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 700, margin: 0 }}>
+        <h1 style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 22, fontWeight: 700, margin: 0 }}>
           Nouveau mariage
         </h1>
       </div>

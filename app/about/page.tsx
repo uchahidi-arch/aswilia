@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+﻿import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
 import HomeFooter from '@/components/home/HomeFooter'
@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 
 const pillars = [
   {
-    emoji: '🌿',
     title: 'Mémoire',
     text: "Préserver les lignées, les noms, les histoires avant qu'elles ne s'effacent.",
     color: 'var(--green)',
@@ -20,7 +19,6 @@ const pillars = [
     border: 'var(--green-bd)',
   },
   {
-    emoji: '🔗',
     title: 'Connexion',
     text: 'Relier la diaspora à ses racines, et les familles entre elles.',
     color: 'var(--gold)',
@@ -28,7 +26,6 @@ const pillars = [
     border: 'var(--gold-bd)',
   },
   {
-    emoji: '🏛️',
     title: 'Identité',
     text: "Affirmer la culture comorienne à travers un outil numérique qui lui ressemble.",
     color: 'var(--rose)',
@@ -43,7 +40,7 @@ export default function AboutPage() {
       {/* ── NAV ─────────────────────────────────────────── */}
       <AboutNavWrapper />
 
-      <main style={{ paddingTop: '64px' }}>
+      <main style={{ paddingTop: '72px' }}>
         {/* ── SECTION 1 : HERO ────────────────────────────── */}
         <section
           style={{
@@ -70,19 +67,15 @@ export default function AboutPage() {
                 textTransform: 'uppercase',
                 letterSpacing: '.15em',
                 marginBottom: '28px',
-                padding: '6px 16px',
-                borderRadius: '100px',
-                background: 'rgba(45,122,84,.22)',
-                border: '1px solid rgba(45,122,84,.45)',
-                color: 'rgba(255,255,255,.7)',
-                fontFamily: 'Outfit, sans-serif',
+                color: 'rgba(255,255,255,.5)',
+                fontFamily: "'Satoshi', sans-serif",
               }}
             >
               Notre histoire
             </span>
             <h1
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: 'clamp(2.2rem, 5vw, 3.75rem)',
                 fontWeight: 700,
                 color: 'white',
@@ -101,7 +94,7 @@ export default function AboutPage() {
                 maxWidth: '640px',
                 margin: '0 auto',
                 color: 'rgba(255,255,255,.6)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
               }}
             >
               Aswilia est né d&apos;un refus. Le refus que la mémoire comorienne se perde dans des
@@ -122,14 +115,14 @@ export default function AboutPage() {
                 letterSpacing: '.15em',
                 marginBottom: '20px',
                 color: 'var(--green)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
               }}
             >
               Origine
             </span>
             <h2
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: 'clamp(1.75rem, 3vw, 2.25rem)',
                 fontWeight: 700,
                 marginBottom: '36px',
@@ -139,7 +132,7 @@ export default function AboutPage() {
             >
               Pourquoi Aswilia existe
             </h2>
-            <div style={{ color: 'var(--t2)', fontFamily: 'Outfit, sans-serif', fontSize: '1.0625rem', lineHeight: 1.85 }}>
+            <div style={{ color: 'var(--t2)', fontFamily: "'Satoshi', sans-serif", fontSize: '1.0625rem', lineHeight: 1.85 }}>
               <p style={{ marginBottom: '24px' }}>
                 Les grands sites de généalogie mondiaux n&apos;ont pas été conçus pour nous. Ils
                 ignorent le Hinya, le Daho, la transmission matrilinéaire, les liens entre îles,
@@ -167,14 +160,14 @@ export default function AboutPage() {
                 letterSpacing: '.15em',
                 marginBottom: '20px',
                 color: 'var(--gold)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
               }}
             >
               Vision
             </span>
             <h2
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: 'clamp(1.75rem, 3vw, 2.25rem)',
                 fontWeight: 700,
                 marginBottom: '36px',
@@ -189,7 +182,7 @@ export default function AboutPage() {
                 fontSize: '1.0625rem',
                 lineHeight: 1.85,
                 color: 'var(--t2)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
               }}
             >
               Aswilia n&apos;est pas né seul. Dans la logique d&apos;affirmer et de préserver
@@ -209,7 +202,7 @@ export default function AboutPage() {
                   letterSpacing: '.1em',
                   flexShrink: 0,
                   color: 'var(--gold)',
-                  fontFamily: 'Outfit, sans-serif',
+                  fontFamily: "'Satoshi', sans-serif",
                 }}
               >
                 UCHAHIDI × U-Data
@@ -231,14 +224,14 @@ export default function AboutPage() {
                 letterSpacing: '.15em',
                 marginBottom: '20px',
                 color: 'var(--green)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
               }}
             >
               Mission
             </span>
             <h2
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: 'clamp(1.75rem, 3vw, 2.25rem)',
                 fontWeight: 700,
                 marginBottom: '28px',
@@ -250,7 +243,7 @@ export default function AboutPage() {
             </h2>
             <p
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: 'clamp(1.25rem, 2vw, 1.5rem)',
                 fontWeight: 500,
                 marginBottom: '24px',
@@ -266,7 +259,7 @@ export default function AboutPage() {
                 lineHeight: 1.85,
                 marginBottom: '64px',
                 color: 'var(--t2)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
               }}
             >
               Que tu sois né aux Comores ou que tu aies grandi loin de l&apos;archipel, Aswilia
@@ -283,20 +276,19 @@ export default function AboutPage() {
                 gap: '20px',
               }}
             >
-              {pillars.map(({ emoji, title, text, color, bg, border }) => (
+              {pillars.map(({ title, text, color, bg, border }) => (
                 <div
                   key={title}
                   style={{
-                    borderRadius: 'var(--r-lg)',
+                    borderRadius: 'var(--r)',
                     padding: '28px',
                     background: bg,
                     border: `1px solid ${border}`,
                   }}
                 >
-                  <div style={{ fontSize: '32px', marginBottom: '16px', lineHeight: 1 }}>{emoji}</div>
                   <h3
                     style={{
-                      fontFamily: 'Cormorant Garamond, serif',
+                      fontFamily: "'Satoshi', sans-serif",
                       fontSize: '1.125rem',
                       fontWeight: 700,
                       marginBottom: '12px',
@@ -310,7 +302,7 @@ export default function AboutPage() {
                       fontSize: '0.875rem',
                       lineHeight: 1.75,
                       color: 'var(--t2)',
-                      fontFamily: 'Outfit, sans-serif',
+                      fontFamily: "'Satoshi', sans-serif",
                     }}
                   >
                     {text}
@@ -334,44 +326,6 @@ export default function AboutPage() {
               'radial-gradient(ellipse 50% 40% at 80% 20%, rgba(122,83,14,.15) 0%, transparent 50%)',
           }}
         >
-          {/* Particules d'arrière-plan */}
-          {[
-            { top: '8%',  left: '7%',  size: 3, color: 'rgba(255,255,255,0.12)', delay: '0s',   dur: '28s' },
-            { top: '15%', left: '22%', size: 2, color: 'rgba(100,200,120,0.08)', delay: '3s',   dur: '34s' },
-            { top: '70%', left: '12%', size: 4, color: 'rgba(255,255,255,0.12)', delay: '6s',   dur: '22s' },
-            { top: '85%', left: '30%', size: 2, color: 'rgba(100,200,120,0.08)', delay: '1s',   dur: '38s' },
-            { top: '5%',  left: '48%', size: 3, color: 'rgba(255,255,255,0.12)', delay: '9s',   dur: '26s' },
-            { top: '55%', left: '55%', size: 5, color: 'rgba(100,200,120,0.08)', delay: '4s',   dur: '32s' },
-            { top: '90%', left: '60%', size: 2, color: 'rgba(255,255,255,0.12)', delay: '11s',  dur: '24s' },
-            { top: '20%', left: '72%', size: 4, color: 'rgba(100,200,120,0.08)', delay: '7s',   dur: '36s' },
-            { top: '75%', left: '80%', size: 3, color: 'rgba(255,255,255,0.12)', delay: '2s',   dur: '30s' },
-            { top: '40%', left: '88%', size: 2, color: 'rgba(100,200,120,0.08)', delay: '13s',  dur: '20s' },
-            { top: '30%', left: '3%',  size: 5, color: 'rgba(100,200,120,0.08)', delay: '5s',   dur: '40s' },
-            { top: '60%', left: '38%', size: 2, color: 'rgba(255,255,255,0.12)', delay: '8s',   dur: '27s' },
-            { top: '12%', left: '90%', size: 3, color: 'rgba(255,255,255,0.12)', delay: '15s',  dur: '33s' },
-            { top: '48%', left: '18%', size: 4, color: 'rgba(100,200,120,0.08)', delay: '10s',  dur: '23s' },
-            { top: '95%', left: '92%', size: 3, color: 'rgba(255,255,255,0.12)', delay: '0s',   dur: '29s' },
-            { top: '35%', left: '65%', size: 2, color: 'rgba(100,200,120,0.08)', delay: '12s',  dur: '37s' },
-            { top: '80%', left: '47%', size: 5, color: 'rgba(255,255,255,0.12)', delay: '16s',  dur: '21s' },
-            { top: '22%', left: '52%', size: 3, color: 'rgba(100,200,120,0.08)', delay: '14s',  dur: '35s' },
-          ].map((p, i) => (
-            <div
-              key={i}
-              style={{
-                position: 'absolute',
-                top: p.top,
-                left: p.left,
-                width: `${p.size}px`,
-                height: `${p.size}px`,
-                borderRadius: '50%',
-                background: p.color,
-                pointerEvents: 'none',
-                zIndex: 0,
-                animation: `particleFloat ${p.dur} ${p.delay} ease-in-out infinite`,
-              }}
-            />
-          ))}
-
           <div style={{ position: 'relative', zIndex: 1, maxWidth: '768px', margin: '0 auto' }}>
             <span
               style={{
@@ -382,14 +336,14 @@ export default function AboutPage() {
                 letterSpacing: '.15em',
                 marginBottom: '24px',
                 color: 'rgba(255,255,255,.45)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
               }}
             >
               Rejoindre
             </span>
             <h2
               style={{
-                fontFamily: 'Cormorant Garamond, serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: 'clamp(1.875rem, 4vw, 3rem)',
                 fontWeight: 700,
                 color: 'white',
@@ -409,7 +363,7 @@ export default function AboutPage() {
                 margin: '0 auto 48px',
                 lineHeight: 1.8,
                 color: 'rgba(255,255,255,.58)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
               }}
             >
               Aswilia n&apos;est pas seulement un endroit où consulter sa généalogie. C&apos;est un
@@ -427,7 +381,7 @@ export default function AboutPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
-                  borderRadius: '100px',
+                  borderRadius: 'var(--r-sm)',
                   fontWeight: 600,
                   textDecoration: 'none',
                   transition: 'all .2s',
@@ -435,10 +389,10 @@ export default function AboutPage() {
                   color: 'var(--green)',
                   padding: '13px 28px',
                   fontSize: '14px',
-                  fontFamily: 'Outfit, sans-serif',
+                  fontFamily: "'Satoshi', sans-serif",
                 }}
               >
-                🌿 Créer mon arbre
+                Créer mon arbre
               </Link>
               <Link
                 href="/registre"
@@ -447,7 +401,7 @@ export default function AboutPage() {
                   alignItems: 'center',
                   justifyContent: 'center',
                   gap: '8px',
-                  borderRadius: '100px',
+                  borderRadius: 'var(--r-sm)',
                   fontWeight: 600,
                   textDecoration: 'none',
                   transition: 'all .2s',
@@ -456,10 +410,10 @@ export default function AboutPage() {
                   border: '1px solid rgba(255,255,255,.28)',
                   padding: '13px 28px',
                   fontSize: '14px',
-                  fontFamily: 'Outfit, sans-serif',
+                  fontFamily: "'Satoshi', sans-serif",
                 }}
               >
-                🔍 Explorer le registre
+                Explorer le registre
               </Link>
             </div>
           </div>

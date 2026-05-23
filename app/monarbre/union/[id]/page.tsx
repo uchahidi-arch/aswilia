@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { use } from 'react';
 import { useRouter } from 'next/navigation';
@@ -47,7 +47,7 @@ export default function UnionDetailPage({ params }: { params: Promise<{ id: stri
     <div style={{ flex: 1, overflowY: 'auto', padding: '24px', maxWidth: 600, margin: '0 auto', width: '100%' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24 }}>
         <button className="btn btn-sec" style={{ fontSize: 11 }} onClick={() => router.back()}>⬅ Retour</button>
-        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 700, margin: 0 }}>
+        <h1 style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 22, fontWeight: 700, margin: 0 }}>
           Détail du mariage
         </h1>
       </div>
@@ -57,14 +57,14 @@ export default function UnionDetailPage({ params }: { params: Promise<{ id: stri
         {pere && (
           <div style={{ ...cardStyle, flex: 1 }} onClick={() => router.push(`/monarbre/${pere.id}`)}>
             <div style={{ fontSize: 10, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: 1 }}>Père</div>
-            <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 700 }}>{pere.prenom}</div>
+            <div style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 18, fontWeight: 700 }}>{pere.prenom}</div>
             <div style={{ fontSize: 12, color: 'var(--t2)' }}>{pere.nom || '—'}</div>
           </div>
         )}
         {mere && (
           <div style={{ ...cardStyle, flex: 1 }} onClick={() => router.push(`/monarbre/${mere.id}`)}>
             <div style={{ fontSize: 10, color: 'var(--t3)', textTransform: 'uppercase', letterSpacing: 1 }}>Mère</div>
-            <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 18, fontWeight: 700 }}>{mere.prenom}</div>
+            <div style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 18, fontWeight: 700 }}>{mere.prenom}</div>
             <div style={{ fontSize: 12, color: 'var(--t2)' }}>{mere.nom || '—'}</div>
           </div>
         )}
@@ -79,7 +79,7 @@ export default function UnionDetailPage({ params }: { params: Promise<{ id: stri
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10, marginBottom: 24 }}>
             {enfants.map(k => k && (
               <div key={k.id} style={{ ...cardStyle, minWidth: 120 }} onClick={() => router.push(`/monarbre/${k.id}`)}>
-                <div style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 16, fontWeight: 700 }}>{k.prenom}</div>
+                <div style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 16, fontWeight: 700 }}>{k.prenom}</div>
                 <div style={{ fontSize: 11, color: 'var(--t2)' }}>{k.nom || '—'}{k.deceased ? ' 🕊️' : ''}</div>
               </div>
             ))}

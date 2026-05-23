@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import { useDB } from '@/hooks/useDB';
 import { useAuth } from '@/hooks/useAuth';
 import type { Person, Union } from '@/lib/types';
@@ -20,8 +20,16 @@ interface TreeViewProps {
   onRelier?: (person: Person) => void;
 }
 
-function ini(p: Person) {
-  return ((p.prenom?.[0] || '?') + (p.nom?.[0] || '?')).toUpperCase();
+function SilhouetteSVG({ genre, size = 28 }: { genre?: string | null; size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="#9E9589">
+      <circle cx="12" cy="8" r="4" />
+      <path d={genre === 'F'
+        ? 'M5 21c0-3.866 3.134-7 7-7s7 3.134 7 7'
+        : 'M4 21v-1a8 8 0 0 1 16 0v1'
+      } />
+    </svg>
+  );
 }
 function ligneeStr(p: Person) {
   return [[p.prefix_lignee, p.clan].filter(Boolean).join(' '), p.daho].filter(Boolean).join(' · ');
@@ -49,6 +57,7 @@ export default function TreeView({
   const [loading, setLoading]   = useState(true);
   const [gpUnionPere, setGpUnionPere] = useState<Union | null>(null);
   const [gpUnionMere, setGpUnionMere] = useState<Union | null>(null);
+  const [popover, setPopover] = useState<{ person: Person; triggerRect: DOMRect } | null>(null);
 
   // Resolved persons cache
   const [persons, setPersons] = useState<Record<string, Person>>({});
@@ -134,18 +143,30 @@ export default function TreeView({
   const children  = (activeUnion?.enfants_ids || []).map(id => getP(id)).filter(Boolean) as Person[];
 
   // Grands-parents (niveau +2)
-  const gpPP = getP(gpUnionPere?.pere_id);  // Grand-père paternel
-  const gpMP = getP(gpUnionPere?.mere_id);  // Grand-mère paternelle
-  const gpPM = getP(gpUnionMere?.pere_id);  // Grand-père maternel
-  const gpMM = getP(gpUnionMere?.mere_id);  // Grand-mère maternelle
+  const gpPP = getP(gpUnionPere?.pere_id);
+  const gpMP = getP(gpUnionPere?.mere_id);
+  const gpPM = getP(gpUnionMere?.pere_id);
+  const gpMM = getP(gpUnionMere?.mere_id);
 
-  // Largeur commune des colonnes GP : si au moins un GP existe d'un côté, les deux colonnes
-  // parent prennent 268px pour que la courbe Y (25%/75%) reste centrée
   const hasAnyGp = !!(gpPP || gpMP || gpPM || gpMM);
   const gpColMinWidth = hasAnyGp ? 268 : undefined;
 
   const canEdit = scope === 'ma' && !!user && !person?.external_ref && person?.owner_id === user.id;
   const isOwner = person && user && person.owner_id !== user.id;
+
+  // Ouvrir le popover sur un nœud
+  const openPopover = (p: Person, e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setPopover({ person: p, triggerRect: e.currentTarget.getBoundingClientRect() });
+  };
+
+  // Fermer le popover sur clic extérieur
+  useEffect(() => {
+    if (!popover) return;
+    const handler = () => setPopover(null);
+    document.addEventListener('click', handler);
+    return () => document.removeEventListener('click', handler);
+  }, [!!popover]);
 
   // Centrer la vue sur la carte focale après chargement
   useEffect(() => {
@@ -153,9 +174,7 @@ export default function TreeView({
       const wrapEl = document.querySelector('.tree-wrapper.open') as HTMLElement | null;
       const focusEl = document.getElementById('zone-union') as HTMLElement | null;
       if (!wrapEl || !focusEl) return;
-      // Centrer horizontalement sur la carte focale
       const wrapW = wrapEl.clientWidth;
-      const scrollW = wrapEl.scrollWidth;
       const focusLeft = focusEl.offsetLeft;
       const focusW = focusEl.offsetWidth;
       const targetLeft = focusLeft + focusW / 2 - wrapW / 2;
@@ -166,7 +185,7 @@ export default function TreeView({
   if (loading) {
     return (
       <div className="tree-wrapper open">
-        <button className="btn btn-sec tree-close-btn" onClick={onBack}>⬅ Retour</button>
+        <button className="btn btn-sec tree-close-btn" onClick={onBack}>← Retour</button>
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div className="spin" />
         </div>
@@ -177,11 +196,7 @@ export default function TreeView({
   if (!person) return null;
 
   return (
-    <div className="tree-wrapper open" style={{
-      position: 'fixed',
-      inset: 0,
-      zIndex: 50,
-    }}>
+    <div className="tree-wrapper open" style={{ position: 'fixed', inset: 0, zIndex: 50 }}>
       <style>{`
         @keyframes treeBlobFloat1 {
           0%, 100% { transform: translate(0, 0) scale(1); }
@@ -197,37 +212,7 @@ export default function TreeView({
         }
       `}</style>
 
-      {/* Blobs décoratifs animés */}
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden',
-      }}>
-        <div style={{
-          position: 'absolute', top: '-80px', left: '-60px',
-          width: '320px', height: '320px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(163,201,126,0.22) 0%, transparent 70%)',
-          animation: 'treeBlobFloat1 9s ease-in-out infinite',
-        }} />
-        <div style={{
-          position: 'absolute', top: '30%', right: '-80px',
-          width: '280px', height: '280px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(106,45,79,0.12) 0%, transparent 70%)',
-          animation: 'treeBlobFloat2 13s ease-in-out infinite',
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '-60px', left: '35%',
-          width: '240px', height: '240px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(45,106,79,0.14) 0%, transparent 70%)',
-          animation: 'treeBlobFloat3 11s ease-in-out infinite',
-        }} />
-        <div style={{
-          position: 'absolute', top: '55%', left: '10%',
-          width: '180px', height: '180px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(200,189,160,0.3) 0%, transparent 70%)',
-          animation: 'treeBlobFloat2 15s ease-in-out infinite 2s',
-        }} />
-      </div>
-
-      <button className="btn btn-sec tree-close-btn" style={{ position: 'relative', zIndex: 2 }} onClick={onBack}>⬅ Retour</button>
+      <button className="btn btn-sec tree-close-btn" style={{ position: 'relative', zIndex: 2 }} onClick={onBack}>← Retour</button>
 
       <div className="tree-zone-inner" style={{ position: 'relative', zIndex: 1 }}>
         {/* ── PARENTS + GRANDS-PARENTS ── */}
@@ -242,26 +227,23 @@ export default function TreeView({
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ...(gpColMinWidth ? { minWidth: gpColMinWidth } : {}) }}>
                     {(gpPP || gpMP) && (
                       <>
-                        {/* Conteneur 268px pour que le GP unique soit centré au-dessus du père */}
                         <div style={{ width: 268, display: 'flex', justifyContent: 'center', gap: '8px' }}>
-                          {gpPP && <ParentCard person={gpPP} role="G-Père" onClick={() => onNavigateTo(gpPP.id)} />}
-                          {gpMP && <ParentCard person={gpMP} role="G-Mère" onClick={() => onNavigateTo(gpMP.id)} />}
+                          {gpPP && <ParentCard person={gpPP} role="G-Père" onClick={(e) => openPopover(gpPP, e)} />}
+                          {gpMP && <ParentCard person={gpMP} role="G-Mère" onClick={(e) => openPopover(gpMP, e)} />}
                         </div>
                         {gpPP && gpMP ? (
-                          /* 2 GP : courbes en Y convergeant au centre */
                           <svg width="268" height="32" viewBox="0 0 268 32" style={{ display: 'block' }}>
                             <path d="M 67 0 C 67 16, 134 16, 134 32" stroke="rgba(163,201,126,0.6)" strokeWidth="1.5" fill="none" />
                             <path d="M 201 0 C 201 16, 134 16, 134 32" stroke="rgba(163,201,126,0.6)" strokeWidth="1.5" fill="none" />
                           </svg>
                         ) : (
-                          /* 1 seul GP : trait droit centré (x=134 = milieu des 268px) */
                           <svg width="268" height="32" viewBox="0 0 268 32" style={{ display: 'block' }}>
                             <line x1="134" y1="0" x2="134" y2="32" stroke="rgba(163,201,126,0.6)" strokeWidth="1.5" />
                           </svg>
                         )}
                       </>
                     )}
-                    <ParentCard person={père} role="Père" onClick={() => onNavigateTo(père.id)} />
+                    <ParentCard person={père} role="Père" onClick={(e) => openPopover(père, e)} />
                   </div>
                 )}
 
@@ -279,26 +261,23 @@ export default function TreeView({
                   <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', ...(gpColMinWidth ? { minWidth: gpColMinWidth } : {}) }}>
                     {(gpPM || gpMM) && (
                       <>
-                        {/* Conteneur 268px pour que le GP unique soit centré au-dessus de la mère */}
                         <div style={{ width: 268, display: 'flex', justifyContent: 'center', gap: '8px' }}>
-                          {gpPM && <ParentCard person={gpPM} role="G-Père" onClick={() => onNavigateTo(gpPM.id)} />}
-                          {gpMM && <ParentCard person={gpMM} role="G-Mère" onClick={() => onNavigateTo(gpMM.id)} />}
+                          {gpPM && <ParentCard person={gpPM} role="G-Père" onClick={(e) => openPopover(gpPM, e)} />}
+                          {gpMM && <ParentCard person={gpMM} role="G-Mère" onClick={(e) => openPopover(gpMM, e)} />}
                         </div>
                         {gpPM && gpMM ? (
-                          /* 2 GP : courbes en Y convergeant au centre */
                           <svg width="268" height="32" viewBox="0 0 268 32" style={{ display: 'block' }}>
                             <path d="M 67 0 C 67 16, 134 16, 134 32" stroke="rgba(163,201,126,0.6)" strokeWidth="1.5" fill="none" />
                             <path d="M 201 0 C 201 16, 134 16, 134 32" stroke="rgba(163,201,126,0.6)" strokeWidth="1.5" fill="none" />
                           </svg>
                         ) : (
-                          /* 1 seul GP : trait droit centré (x=134 = milieu des 268px) */
                           <svg width="268" height="32" viewBox="0 0 268 32" style={{ display: 'block' }}>
                             <line x1="134" y1="0" x2="134" y2="32" stroke="rgba(163,201,126,0.6)" strokeWidth="1.5" />
                           </svg>
                         )}
                       </>
                     )}
-                    <ParentCard person={mère} role="Mère" onClick={() => onNavigateTo(mère.id)} />
+                    <ParentCard person={mère} role="Mère" onClick={(e) => openPopover(mère, e)} />
                   </div>
                 )}
 
@@ -321,26 +300,29 @@ export default function TreeView({
         {/* ── UNION ROW ── */}
         <div id="zone-union" style={{ width: '100%' }}>
           <div className="tree-zone" style={{ paddingTop: 0, paddingBottom: 0 }}>
-            {/* Layout 3 colonnes : conjoint-gauche | focal (centré) | conjoint-droite */}
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%' }}>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr auto 1fr', alignItems: 'center', width: '100%' }}>
 
               {/* Colonne gauche — conjoint si personne est F */}
-              <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-end', alignItems: 'center' }}>
                 {person.genre === 'F' && partner && (
                   <>
-                    <PartnerCard person={partner} onClick={() => onNavigateTo(partner.id)} />
+                    <PartnerCard person={partner} onClick={(e) => openPopover(partner, e)} />
                     <div className="union-line" style={{ background: 'rgba(163,201,126,0.6)', height: '2px' }}>
                       {canEdit && activeUnion && (
-                        <button className="union-edit-btn" onClick={() => onModifyUnion?.(activeUnion.id)}>✏</button>
+                        <button className="union-edit-btn" onClick={() => onModifyUnion?.(activeUnion.id)}>
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                          </svg>
+                        </button>
                       )}
                     </div>
                   </>
                 )}
               </div>
 
-              {/* Personne focale — toujours centrée, ne rétrécit pas */}
-              <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                {/* Dot de jonction centré juste au-dessus de la carte focale */}
+              {/* Personne focale — toujours centrée */}
+              <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', position: 'relative', zIndex: 1 }}>
                 {(parentUnion || partner) && (
                   <div style={{
                     width: 10, height: 10, borderRadius: '50%',
@@ -366,19 +348,29 @@ export default function TreeView({
               </div>
 
               {/* Colonne droite — conjoint si personne est M */}
-              <div style={{ flex: 1, display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
+              <div style={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}>
                 {person.genre === 'M' && partner && (
                   <>
                     <div className="union-line" style={{ background: 'rgba(163,201,126,0.6)', height: '2px' }}>
                       {canEdit && activeUnion && (
-                        <button className="union-edit-btn" onClick={() => onModifyUnion?.(activeUnion.id)}>✏</button>
+                        <button className="union-edit-btn" onClick={() => onModifyUnion?.(activeUnion.id)}>
+                          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                          </svg>
+                        </button>
                       )}
                     </div>
-                    <PartnerCard person={partner} onClick={() => onNavigateTo(partner.id)} />
+                    <PartnerCard person={partner} onClick={(e) => openPopover(partner, e)} />
                   </>
                 )}
                 {canEdit && activeUnion && !partner && (
-                  <button className="union-edit-btn" style={{ marginLeft: 8 }} onClick={() => onModifyUnion?.(activeUnion.id)}>✏</button>
+                  <button className="union-edit-btn" style={{ marginLeft: 8 }} onClick={() => onModifyUnion?.(activeUnion.id)}>
+                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+                    </svg>
+                  </button>
                 )}
               </div>
 
@@ -426,7 +418,7 @@ export default function TreeView({
               style={{ fontSize: 11, padding: '3px 12px' }}
               onClick={() => onModifyUnion?.(activeUnion.id)}
             >
-              ✏ Modifier ce mariage
+              Modifier ce mariage
             </button>
           </div>
         )}
@@ -456,18 +448,18 @@ export default function TreeView({
                   <div
                     key={k.id}
                     className={`child-card ${k.genre || 'M'}`}
-                    onClick={() => onNavigateTo(k.id)}
+                    onClick={(e) => openPopover(k, e)}
                     style={k.masque ? { opacity: 0.55 } : undefined}
                   >
                     <div className={`child-photo ${k.genre || 'M'}`}>
                       {k.photo_url
                         ? <img src={k.photo_url} alt={k.prenom} onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-                        : ini(k)
+                        : <SilhouetteSVG genre={k.genre} size={22} />
                       }
                     </div>
                     <div className="child-prenom">
-                      {k.prenom}{k.deceased ? ' 🕊️' : ''}
-                      {k.masque && ' 🔒'}
+                      {k.prenom}{k.deceased ? ' †' : ''}
+                      {k.masque && ' [masqué]'}
                     </div>
                     <div className="child-nom">{k.nom || '—'}</div>
                     {(ligneeStr(k) || k.localite) && (
@@ -475,10 +467,9 @@ export default function TreeView({
                     )}
                   </div>
                 ))}
-                {/* Placeholder enfants masqués — visible uniquement dans le registre */}
                 {scope === 'reg' && children.filter(k => k.masque).length > 0 && (
                   <div className="child-card M" style={{ pointerEvents: 'none', opacity: 0.45, minWidth: 80 }}>
-                    <div className="child-photo M" style={{ fontSize: 14 }}>🔒</div>
+                    <div className="child-photo M" style={{ fontSize: 10 }}>—</div>
                     <div className="child-prenom" style={{ fontSize: 10 }}>
                       {children.filter(k => k.masque).length} masqué{children.filter(k => k.masque).length > 1 ? 's' : ''}
                     </div>
@@ -492,13 +483,21 @@ export default function TreeView({
         {/* ── INFO STRIP ── */}
         <InfoStrip person={person} unions={unions} canEdit={canEdit} onEdit={() => onEditPerson?.(person)} onAddUnion={() => onAddUnion?.(person.id)} />
       </div>
+
+      {popover && (
+        <NodePopover
+          popover={popover}
+          onNavigate={(id) => { setPopover(null); onNavigateTo(id); }}
+          onClose={() => setPopover(null)}
+        />
+      )}
     </div>
   );
 }
 
 /* ── Sub-components ── */
 
-function ParentCard({ person, role, onClick }: { person: Person; role: string; onClick: () => void }) {
+function ParentCard({ person, role, onClick }: { person: Person; role: string; onClick: React.MouseEventHandler<HTMLDivElement> }) {
   const genre = person.genre || 'M';
   const isGp = role.startsWith('G-');
   const cls = isGp ? `parent-card ${genre} gp-${genre}` : `parent-card ${genre}`;
@@ -507,7 +506,7 @@ function ParentCard({ person, role, onClick }: { person: Person; role: string; o
       <div className={`parent-photo ${person.genre || 'M'}`}>
         {person.photo_url
           ? <img src={person.photo_url} alt={person.prenom} onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-          : ini(person)
+          : <SilhouetteSVG genre={person.genre} size={28} />
         }
       </div>
       <div className="parent-role">{role}</div>
@@ -518,13 +517,13 @@ function ParentCard({ person, role, onClick }: { person: Person; role: string; o
   );
 }
 
-function PartnerCard({ person, onClick }: { person: Person; onClick: () => void }) {
+function PartnerCard({ person, onClick }: { person: Person; onClick: React.MouseEventHandler<HTMLDivElement> }) {
   return (
     <div className={`partner-card ${person.genre || 'M'}`} onClick={onClick}>
       <div className={`partner-photo ${person.genre || 'M'}`}>
         {person.photo_url
           ? <img src={person.photo_url} alt={person.prenom} onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-          : ini(person)
+          : <SilhouetteSVG genre={person.genre} size={28} />
         }
       </div>
       <div className="partner-role">{person.genre === 'M' ? 'Mari' : 'Épouse'}</div>
@@ -541,7 +540,6 @@ function FocusCard({
   parentUnion, hasPartner,
 }: any) {
   const isHomme = person.genre === 'M';
-  const conjointGenreAttendu: 'M' | 'F' = isHomme ? 'F' : 'M';
   const hasPere = parentUnion?.pere_id;
   const hasMere = parentUnion?.mere_id;
   const { user } = useAuth();
@@ -551,7 +549,7 @@ function FocusCard({
       <div className="focus-photo">
         {person.photo_url
           ? <img src={person.photo_url} alt={person.prenom} onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
-          : ini(person)
+          : <SilhouetteSVG genre={person.genre} size={40} />
         }
       </div>
       <div className="focus-prenom">{person.prenom}</div>
@@ -559,19 +557,19 @@ function FocusCard({
 
       <div className="focus-tags">
         {person.deceased
-          ? <span className="f-tag dead">🕊️ Décédé·e</span>
-          : <span className="f-tag alive">🟢 En vie</span>
+          ? <span className="f-tag dead">Décédé·e</span>
+          : <span className="f-tag alive">En vie</span>
         }
         {person.masque && (
           <span className="f-tag" style={{ background: 'var(--warm2)', color: 'var(--t3)', border: '1px solid var(--bd)' }}>
-            🔒 Masqué
+            Masqué
           </span>
         )}
       </div>
 
       <div className="focus-tags">
-        {person.clan && <span className="f-tag hinya">⬡ {person.prefix_lignee || 'Hinya'} {person.clan}</span>}
-        {person.localite && <span className="f-tag loc">📍 {person.localite}</span>}
+        {person.clan && <span className="f-tag hinya">{person.prefix_lignee || 'Hinya'} {person.clan}</span>}
+        {person.localite && <span className="f-tag loc">{person.localite}</span>}
       </div>
 
       {person.daho && (
@@ -580,7 +578,6 @@ function FocusCard({
         </div>
       )}
 
-      {/* PDF export */}
       {user && (
         <button className="btn-pdf" onClick={onExportPDF}>
           <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
@@ -595,7 +592,7 @@ function FocusCard({
       <div className="focus-actions">
         {canEdit && (
           <>
-            <button className="btn btn-pri" onClick={onEdit}>✏ Modifier</button>
+            <button className="btn btn-pri" onClick={onEdit}>Modifier</button>
             <button className="btn btn-sec" onClick={onAddUnion}>+ Mariage</button>
             {!person.deceased && (
               <button
@@ -604,14 +601,14 @@ function FocusCard({
                 onClick={onToggleMasque}
                 title={person.masque ? 'Rendre visible dans le registre' : 'Masquer dans le registre public'}
               >
-                {person.masque ? '👁 Démasquer' : '🔒 Masquer'}
+                {person.masque ? 'Démasquer' : 'Masquer'}
               </button>
             )}
           </>
         )}
         {isReg && user && isOwner && (
           <button className="btn btn-pri" style={{ fontSize: '11px' }} onClick={onRelier}>
-            🔗 Relier à ma famille
+            Relier à ma famille
           </button>
         )}
         {person.external_ref && (
@@ -619,7 +616,7 @@ function FocusCard({
             fontSize: '9px', color: 'var(--gold)', background: 'var(--gold-bg)',
             border: '1px solid var(--gold-bd)', borderRadius: '100px', padding: '2px 9px', marginTop: '4px',
           }}>
-            🔗 Fiche externe — lecture seule
+            Fiche externe — lecture seule
           </div>
         )}
       </div>
@@ -632,6 +629,106 @@ function FocusCard({
           {!hasPartner && <button className="qa-btn conjoint" onClick={() => onAddRelation?.('conjoint')}>{isHomme ? '+ Conjointe' : '+ Conjoint'}</button>}
         </div>
       )}
+    </div>
+  );
+}
+
+function NodePopover({
+  popover,
+  onNavigate,
+  onClose,
+}: {
+  popover: { person: Person; triggerRect: DOMRect };
+  onNavigate: (id: string) => void;
+  onClose: () => void;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [pos, setPos] = useState<{ left: number; top: number } | null>(null);
+
+  useLayoutEffect(() => {
+    if (!ref.current) return;
+    const pw = ref.current.offsetWidth || 200;
+    const ph = ref.current.offsetHeight;
+    const { left: rl, top: rt, right: rr, height: rh } = popover.triggerRect;
+
+    // Droite si possible, sinon gauche
+    let left = rr + 8 + pw <= window.innerWidth - 8
+      ? rr + 8
+      : rl - pw - 8;
+    left = Math.max(8, left);
+
+    // Centré verticalement sur le nœud
+    let top = rt + rh / 2 - ph / 2;
+    top = Math.max(8, Math.min(window.innerHeight - ph - 8, top));
+
+    setPos({ left, top });
+  }, [popover]);
+
+  const p = popover.person;
+
+  return (
+    <div
+      ref={ref}
+      onClick={(e) => e.stopPropagation()}
+      style={{
+        position: 'fixed',
+        left: pos?.left ?? -9999,
+        top: pos?.top ?? -9999,
+        zIndex: 300,
+        visibility: pos ? 'visible' : 'hidden',
+        background: 'var(--bg2)',
+        backdropFilter: 'blur(16px)',
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '16px',
+        padding: '16px',
+        boxShadow: '0 8px 32px rgba(0,0,0,0.15)',
+        minWidth: '180px',
+        maxWidth: '220px',
+        textAlign: 'center',
+        animation: 'popIn 0.15s ease',
+      }}
+    >
+      <div style={{
+        width: 44, height: 44, borderRadius: '50%',
+        margin: '0 auto 10px',
+        background: '#F0EDE6',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        overflow: 'hidden',
+        flexShrink: 0,
+      }}>
+        {p.photo_url
+          ? <img src={p.photo_url} alt={p.prenom ?? ''} style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { (e.target as HTMLImageElement).style.display = 'none'; }} />
+          : <SilhouetteSVG genre={p.genre} size={24} />
+        }
+      </div>
+
+      <div style={{ fontSize: 15, fontWeight: 700, color: 'var(--t1)', fontFamily: "'Satoshi', sans-serif", lineHeight: 1.2 }}>
+        {p.prenom} {p.nom}
+      </div>
+
+      <div style={{ display: 'flex', gap: 6, justifyContent: 'center', flexWrap: 'wrap', margin: '8px 0 12px' }}>
+        <span style={{
+          fontSize: 10, padding: '2px 8px', borderRadius: 100, fontWeight: 600,
+          background: p.deceased ? '#F3F4F6' : 'var(--green-bg)',
+          color: p.deceased ? '#6B7280' : 'var(--green)',
+          border: `1px solid ${p.deceased ? '#E5E7EB' : 'var(--green-bd)'}`,
+        }}>
+          {p.deceased ? 'Décédé·e' : 'En vie'}
+        </span>
+        {p.clan && (
+          <span style={{ fontSize: 10, padding: '2px 8px', borderRadius: 100, background: 'var(--gold-bg)', color: 'var(--gold)', border: '1px solid var(--gold-bd)', fontWeight: 600 }}>
+            {p.clan}
+          </span>
+        )}
+      </div>
+
+      <button
+        className="btn btn-pri"
+        style={{ width: '100%', fontSize: 12 }}
+        onClick={() => onNavigate(p.id)}
+      >
+        Voir l'arbre →
+      </button>
     </div>
   );
 }
@@ -659,14 +756,14 @@ function InfoStrip({ person, unions, canEdit, onEdit, onAddUnion }: any) {
         <div className="info-chip" style={{ marginLeft: 0 }}>
           <div className="ic-lbl">Ajouté par</div>
           <div className="ic-creator">
-            ✍ {person.created_by_name}
+            {person.created_by_name}
             {person.created_at && ` · ${new Date(person.created_at).toLocaleDateString('fr-FR')}`}
           </div>
         </div>
       )}
       {canEdit && (
         <div className="info-actions">
-          <button className="btn btn-sec" onClick={onEdit}>✏ Modifier</button>
+          <button className="btn btn-sec" onClick={onEdit}>Modifier</button>
           <button className="btn btn-pri" onClick={onAddUnion}>+ Mariage</button>
         </div>
       )}

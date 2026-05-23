@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -158,7 +158,7 @@ export default function ProfilPage() {
           {initial}
         </div>
         <div style={{ minWidth: 0 }}>
-          <div style={{ fontSize: '24px', fontWeight: 700, fontFamily: "'Cormorant Garamond', serif", color: 'var(--t1)', lineHeight: 1.2 }}>
+          <div style={{ fontSize: '24px', fontWeight: 700, fontFamily: "'Satoshi', sans-serif", color: 'var(--t1)', lineHeight: 1.2 }}>
             {[profile?.prenom, profile?.nom].filter(Boolean).join(' ') || displayUsername}
           </div>
           <div style={{ fontSize: '13px', color: 'var(--green)', fontWeight: 600, marginTop: '4px' }}>

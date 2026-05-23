@@ -12,7 +12,11 @@
       "Bash(mkdir -p \"c:\\\\Users\\\\7MAKSACOD PC\\\\Downloads\\\\Aswilia\\\\app\\\\monarbre\\\\[id]\\\\mariage\")",
       "Bash(mkdir -p \"c:\\\\Users\\\\7MAKSACOD PC\\\\Downloads\\\\Aswilia\\\\app\\\\monarbre\\\\union\\\\[id]\")",
       "Bash(node -e \"const sharp = require\\('sharp'\\); sharp\\('public/favicon.png'\\).metadata\\(\\).then\\(m => console.log\\(m.width, m.height, m.format\\)\\)\")",
-      "Bash(node -e \"const sharp = require\\('sharp'\\); sharp\\('public/favicon.png'\\).metadata\\(\\).then\\(m => console.log\\(m.width, m.height\\)\\)\")"
+      "Bash(node -e \"const sharp = require\\('sharp'\\); sharp\\('public/favicon.png'\\).metadata\\(\\).then\\(m => console.log\\(m.width, m.height\\)\\)\")",
+      "Bash(node -e \"const fs = require\\('fs'\\); const content = fs.readFileSync\\('components/app/MonArbreView.tsx', 'utf8'\\); const match = content.match\\(/normalize.*\\\\n/\\); console.log\\(JSON.stringify\\(match?.[0]\\)\\)\")",
+      "Bash(node -e \"const fs = require\\('fs'\\); const content = fs.readFileSync\\('components/app/MonArbreView.tsx', 'utf8'\\); const lines = content.split\\('\\\\n'\\); console.log\\(JSON.stringify\\(lines[10]\\)\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(node -e \"const fs = require\\('fs'\\); const content = fs.readFileSync\\('components/app/MonArbreView.tsx', 'utf8'\\); const lines = content.split\\('\\\\n'\\); console.log\\(lines[10]\\)\")"
     ]
   }
 }

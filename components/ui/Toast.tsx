@@ -1,4 +1,4 @@
-'use client'
+﻿'use client'
 
 import { useEffect, useState, createContext, useContext, useCallback, type ReactNode } from 'react'
 import { useAppState } from '@/hooks/useAppState'
@@ -66,7 +66,7 @@ function ToastItem({ msg, type }: ToastMessage) {
         borderRadius: 100,
         fontSize: 13,
         fontWeight: 500,
-        fontFamily: 'var(--font-outfit, Outfit, sans-serif)',
+        fontFamily: "'Satoshi', sans-serif",
         whiteSpace: 'nowrap',
         boxShadow: '0 6px 24px rgba(20,18,13,.11)',
         opacity: visible ? 1 : 0,
@@ -103,7 +103,7 @@ export default function Toast() {
         background: bg, color: 'white',
         padding: '10px 20px', borderRadius: 100,
         fontSize: 13, fontWeight: 500,
-        fontFamily: 'var(--font-outfit, Outfit, sans-serif)',
+        fontFamily: "'Satoshi', sans-serif",
         whiteSpace: 'nowrap',
         boxShadow: '0 6px 24px rgba(20,18,13,.18)',
       }}>

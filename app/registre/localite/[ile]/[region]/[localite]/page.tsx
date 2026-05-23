@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -129,7 +129,7 @@ export default function LocalitePage({
               gap: '12px',
             }}>
               <div>
-                <div style={{ fontSize: '22px', fontWeight: 700, fontFamily: "'Cormorant Garamond', serif", color: 'var(--t1)' }}>
+                <div style={{ fontSize: '22px', fontWeight: 700, fontFamily: "'Satoshi', sans-serif", color: 'var(--t1)' }}>
                   🏘️ {found.localite}
                 </div>
                 <div style={{ fontSize: '12px', color: 'var(--t3)', marginTop: '4px' }}>

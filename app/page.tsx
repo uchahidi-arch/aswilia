@@ -4,17 +4,16 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import HomeNav from '@/components/home/HomeNav';
 import Hero from '@/components/home/Hero';
-import StatsBar from '@/components/home/StatsBar';
-import Features from '@/components/home/Features';
-import HinyaSection from '@/components/home/HinyaSection';
-import CTABand from '@/components/home/CTABand';
+import Contribution from '@/components/home/Contribution';
 import HomeFooter from '@/components/home/HomeFooter';
 import DemoTree from '@/components/home/DemoTree';
 import AuthModal from '@/components/auth/AuthModal';
 import Toast from '@/components/ui/Toast';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function HomePage() {
   const router = useRouter();
+  const { user } = useAuth();
   const [authOpen, setAuthOpen] = useState(false);
   const [authTab, setAuthTab] = useState<'login' | 'signup'>('login');
 
@@ -27,15 +26,16 @@ export default function HomePage() {
 
   return (
     <>
-      <HomeNav onNavigateToApp={goToApp} onOpenAuth={openAuth} />
+      <HomeNav onOpenAuth={openAuth} />
 
       <main>
         <Hero onNavigateToApp={goToApp} onOpenAuth={openAuth} />
-        <StatsBar />
         <DemoTree />
-        <Features />
-        <HinyaSection />
-        <CTABand onOpenAuth={openAuth} onNavigateToApp={goToApp} />
+        <Contribution
+          onOpenAuth={openAuth}
+          isLoggedIn={!!user}
+          onGoToTree={() => router.push('/monarbre')}
+        />
       </main>
 
       <HomeFooter />

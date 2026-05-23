@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { use, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -93,7 +93,7 @@ export default function CreateurProfilePage({
             }}>
               <div className="pc-av M">{initials(decodedName)}</div>
               <div>
-                <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--t1)', fontFamily: "'Cormorant Garamond', serif" }}>
+                <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--t1)', fontFamily: "'Satoshi', sans-serif" }}>
                   {decodedName}
                 </div>
                 <div style={{ fontSize: '13px', color: 'var(--t3)', marginTop: '3px' }}>

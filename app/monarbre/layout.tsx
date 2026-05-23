@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import AppHeader from '@/components/app/AppHeader';
+import HomeNav from '@/components/home/HomeNav';
 import NotifPanel from '@/components/app/NotifPanel';
 import AuthModal from '@/components/auth/AuthModal';
 import Toast from '@/components/ui/Toast';
@@ -36,28 +36,28 @@ export default function MonarbreLayout({ children }: { children: React.ReactNode
   }
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
-      <Toast />
-      <AppHeader
-        onOpenAuth={(tab) => { setAuthTab(tab); setAuthOpen(true); }}
-        notifCount={notifCount}
-        onToggleNotifs={() => setNotifsOpen(v => !v)}
-      />
-      <div className="app-main" style={{ position: 'relative' }}>
-        {children}
-      </div>
-      <footer className="app-footer">
-        <Image
-          src="/logo.png"
-          alt="Aswilia"
-          width={100}
-          height={28}
-          style={{ objectFit: 'contain', width: 'auto', height: '28px' }}
+      <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
+        <Toast />
+        <HomeNav
+          onOpenAuth={(tab) => { setAuthTab(tab); setAuthOpen(true); }}
+          notifCount={notifCount}
+          onToggleNotifs={() => setNotifsOpen(v => !v)}
         />
-        <div className="app-footer-right">Pensé &amp; Développé par <span>U-DATA</span></div>
-      </footer>
-      <NotifPanel open={notifsOpen} onClose={() => setNotifsOpen(false)} onCountChange={setNotifCount} />
-      <AuthModal open={authOpen} initialTab={authTab} onClose={() => setAuthOpen(false)} />
-    </div>
+        <div className="app-main">
+          {children}
+        </div>
+        <footer className="app-footer">
+          <Image
+            src="/logo.png"
+            alt="Aswilia"
+            width={100}
+            height={28}
+            style={{ objectFit: 'contain', width: 'auto', height: '28px' }}
+          />
+          <div className="app-footer-right">Pensé &amp; Développé par <span>U-DATA</span></div>
+        </footer>
+        <NotifPanel open={notifsOpen} onClose={() => setNotifsOpen(false)} onCountChange={setNotifCount} />
+        <AuthModal open={authOpen} initialTab={authTab} onClose={() => setAuthOpen(false)} />
+      </div>
   );
 }

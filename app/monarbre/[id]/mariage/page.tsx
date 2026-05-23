@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, use } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -128,7 +128,7 @@ export default function MariagePage({ params }: { params: Promise<{ id: string }
         gap: 24
       }}>
         <h1 style={{ 
-          fontFamily: "'Cormorant Garamond', serif", 
+          fontFamily: "'Satoshi', sans-serif", 
           fontSize: 28, 
           fontWeight: 700, 
           margin: 0,

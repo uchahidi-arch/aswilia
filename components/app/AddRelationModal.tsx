@@ -15,11 +15,11 @@ interface Props {
   onDone: (linkedPersonId: string) => void;
 }
 
-const ROLE_LABELS: Record<Role, { label: string; icon: string; genreFilter?: 'M' | 'F' }> = {
-  pere:     { label: 'Père',       icon: '👨', genreFilter: 'M' },
-  mere:     { label: 'Mère',       icon: '👩', genreFilter: 'F' },
-  enfant:   { label: 'Enfant',     icon: '🌱' },
-  conjoint: { label: 'Conjoint·e', icon: '💍' },
+const ROLE_LABELS: Record<Role, { label: string; genreFilter?: 'M' | 'F' }> = {
+  pere:     { label: 'Père',       genreFilter: 'M' },
+  mere:     { label: 'Mère',       genreFilter: 'F' },
+  enfant:   { label: 'Enfant' },
+  conjoint: { label: 'Conjoint·e' },
 };
 
 export default function AddRelationModal({ role, forPerson, onClose, onCreateNew, onDone }: Props) {
@@ -117,7 +117,7 @@ export default function AddRelationModal({ role, forPerson, onClose, onCreateNew
     <div className="m-back open" onClick={e => e.target === e.currentTarget && onClose()}>
       <div className="modal" style={{ maxWidth: 480 }}>
         <div className="m-hdr">
-          <div className="m-title">{cfg.icon} Ajouter un·e {cfg.label.toLowerCase()}</div>
+          <div className="m-title">Ajouter un·e {cfg.label.toLowerCase()}</div>
           <button className="btn btn-sec" style={{ padding: '4px 8px' }} onClick={onClose}>✕</button>
         </div>
 
@@ -210,7 +210,7 @@ export default function AddRelationModal({ role, forPerson, onClose, onCreateNew
                     </div>
                   )}
                 </div>
-                {p.deceased && <span style={{ fontSize: 11 }}>🕊️</span>}
+                {p.deceased && <span style={{ fontSize: 11, color: 'var(--t3)' }}>†</span>}
               </label>
             ))}
           </div>

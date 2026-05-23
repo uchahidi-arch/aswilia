@@ -17,12 +17,12 @@ interface RelierModalProps {
   onDone: (linkedId: string) => void
 }
 
-const ROLES: { value: RelierRole; label: string; desc: string; icon: string; gold?: boolean }[] = [
-  { value: 'pere',     icon: '👨', label: 'Définir comme père de...',      desc: 'Il sera ajouté comme père dans votre arbre' },
-  { value: 'mere',     icon: '👩', label: 'Définir comme mère de...',      desc: 'Elle sera ajoutée comme mère dans votre arbre' },
-  { value: 'conjoint', icon: '💍', label: 'Définir comme conjoint·e de...', desc: 'Un mariage sera créé entre vous deux' },
-  { value: 'enfant',   icon: '🌱', label: 'Définir comme enfant de...',    desc: 'Il/Elle sera ajouté·e comme enfant dans un mariage' },
-  { value: 'same',     icon: '🔄', label: 'Il s\'agit de la même personne', desc: 'Fusionner : remplacez votre brouillon par cette fiche publique (vos enfants et conjoints seront transférés).', gold: true },
+const ROLES: { value: RelierRole; label: string; desc: string; gold?: boolean }[] = [
+  { value: 'pere',     label: 'Définir comme père de...',      desc: 'Il sera ajouté comme père dans votre arbre' },
+  { value: 'mere',     label: 'Définir comme mère de...',      desc: 'Elle sera ajoutée comme mère dans votre arbre' },
+  { value: 'conjoint', label: 'Définir comme conjoint·e de...', desc: 'Un mariage sera créé entre vous deux' },
+  { value: 'enfant',   label: 'Définir comme enfant de...',    desc: 'Il/Elle sera ajouté·e comme enfant dans un mariage' },
+  { value: 'same',     label: 'Il s\'agit de la même personne', desc: 'Fusionner : remplacez votre brouillon par cette fiche publique (vos enfants et conjoints seront transférés).', gold: true },
 ]
 
 export default function RelierModal({
@@ -98,7 +98,7 @@ export default function RelierModal({
           borderBottom: '1px solid #BBF7D0', borderRadius: '16px 16px 0 0',
         }}>
           <span style={{ fontWeight: 600, color: '#166534', fontSize: '14px' }}>
-            🔗 Relier à ma famille
+            Relier à ma famille
           </span>
           <button onClick={handleClose} style={{
             background: 'none', border: 'none', cursor: 'pointer',
@@ -113,7 +113,7 @@ export default function RelierModal({
             background: '#FAFAF9', border: '1px solid #E7E5E4',
             borderRadius: '8px', padding: '12px',
           }}>
-            <p style={{ fontFamily: 'var(--font-cormorant, serif)', fontSize: '18px', fontWeight: 700, color: '#1C1917', margin: 0 }}>
+            <p style={{ fontFamily: "'Satoshi', sans-serif", fontSize: '18px', fontWeight: 700, color: '#1C1917', margin: 0 }}>
               {targetPerson.prenom} {targetPerson.nom ?? ''}
             </p>
             <p style={{ fontSize: '12px', color: '#78716C', marginTop: '4px', marginBottom: 0 }}>
@@ -155,7 +155,6 @@ export default function RelierModal({
                     fontFamily: 'inherit',
                   }}
                 >
-                  <span style={{ fontSize: '16px' }}>{role.icon}</span>
                   <div>
                     <p style={{ fontSize: '14px', fontWeight: 600, color: role.gold ? '#92400E' : '#1C1917', margin: 0 }}>
                       {role.label}

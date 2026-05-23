@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -84,7 +84,7 @@ export default function NouvelleChroniquePage() {
   return (
     <>
       <AboutNavWrapper />
-      <main style={{ paddingTop: '64px', minHeight: '100vh', background: 'var(--bg)' }}>
+      <main style={{ paddingTop: '72px', minHeight: '100vh', background: 'var(--bg)' }}>
         <div style={{ maxWidth: '760px', margin: '0 auto', padding: '48px 24px 80px' }}>
 
           {/* En-tête */}
@@ -93,7 +93,7 @@ export default function NouvelleChroniquePage() {
               fontSize: '13px',
               color: 'var(--t3)',
               textDecoration: 'none',
-              fontFamily: 'Outfit, sans-serif',
+              fontFamily: "'Satoshi', sans-serif",
               display: 'inline-flex',
               alignItems: 'center',
               gap: '6px',
@@ -102,7 +102,7 @@ export default function NouvelleChroniquePage() {
               ← Retour aux chroniques
             </Link>
             <h1 style={{
-              fontFamily: 'Cormorant Garamond, serif',
+              fontFamily: "'Satoshi', sans-serif",
               fontSize: 'clamp(1.8rem, 4vw, 2.5rem)',
               fontWeight: 700,
               color: 'var(--t1)',
@@ -181,7 +181,7 @@ export default function NouvelleChroniquePage() {
                 onChange={e => setContenu(e.target.value)}
                 rows={16}
                 placeholder="Rédigez ici le contenu complet de la chronique…"
-                style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.7, fontFamily: 'Outfit, sans-serif' }}
+                style={{ ...inputStyle, resize: 'vertical', lineHeight: 1.7, fontFamily: "'Satoshi', sans-serif" }}
               />
             </div>
 
@@ -207,7 +207,7 @@ export default function NouvelleChroniquePage() {
               alignItems: 'center',
               gap: '10px',
               cursor: 'pointer',
-              fontFamily: 'Outfit, sans-serif',
+              fontFamily: "'Satoshi', sans-serif",
               fontSize: '14px',
               color: 'var(--t2)',
             }}>
@@ -228,7 +228,7 @@ export default function NouvelleChroniquePage() {
                 background: 'rgba(220,38,38,.08)',
                 border: '1px solid rgba(220,38,38,.25)',
                 color: '#dc2626',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: '14px',
               }}>
                 {error}
@@ -242,7 +242,7 @@ export default function NouvelleChroniquePage() {
                 borderRadius: '100px',
                 border: '1px solid var(--bd)',
                 color: 'var(--t2)',
-                fontFamily: 'Outfit, sans-serif',
+                fontFamily: "'Satoshi', sans-serif",
                 fontSize: '14px',
                 fontWeight: 500,
                 textDecoration: 'none',
@@ -258,7 +258,7 @@ export default function NouvelleChroniquePage() {
                   background: saving ? 'var(--t3)' : 'var(--green)',
                   border: 'none',
                   color: 'white',
-                  fontFamily: 'Outfit, sans-serif',
+                  fontFamily: "'Satoshi', sans-serif",
                   fontSize: '14px',
                   fontWeight: 600,
                   cursor: saving ? 'not-allowed' : 'pointer',
@@ -282,7 +282,7 @@ const labelStyle: React.CSSProperties = {
   fontSize: '13px',
   fontWeight: 600,
   color: 'var(--t2)',
-  fontFamily: 'Outfit, sans-serif',
+  fontFamily: "'Satoshi', sans-serif",
   textTransform: 'uppercase',
   letterSpacing: '.06em',
 };
@@ -294,7 +294,7 @@ const inputStyle: React.CSSProperties = {
   border: '1px solid var(--bd)',
   background: 'var(--card)',
   color: 'var(--t1)',
-  fontFamily: 'Outfit, sans-serif',
+  fontFamily: "'Satoshi', sans-serif",
   fontSize: '14px',
   outline: 'none',
   boxSizing: 'border-box',

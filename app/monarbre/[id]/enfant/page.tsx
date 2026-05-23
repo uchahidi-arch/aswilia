@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, use } from 'react';
 import { useRouter } from 'next/navigation';
@@ -134,7 +134,7 @@ export default function AjouterEnfantPage({ params }: { params: Promise<{ id: st
         gap: 24
       }}>
         <h1 style={{ 
-          fontFamily: "'Cormorant Garamond', serif", 
+          fontFamily: "'Satoshi', sans-serif", 
           fontSize: 28, 
           fontWeight: 700, 
           margin: 0,

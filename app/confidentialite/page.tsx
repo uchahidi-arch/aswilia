@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import Link from 'next/link';
 import Image from 'next/image';
@@ -32,7 +32,7 @@ export default function ConfidentialitePage() {
           <div style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.12em', color: 'var(--green)', marginBottom: '8px' }}>
             Politique de confidentialité
           </div>
-          <h1 style={{ fontSize: '36px', fontWeight: 700, fontFamily: "'Cormorant Garamond', serif", color: 'var(--t1)', lineHeight: 1.2, margin: 0 }}>
+          <h1 style={{ fontSize: '36px', fontWeight: 700, fontFamily: "'Satoshi', sans-serif", color: 'var(--t1)', lineHeight: 1.2, margin: 0 }}>
             Vos données vous appartiennent
           </h1>
           <p style={{ fontSize: '14px', color: 'var(--t3)', marginTop: '12px', lineHeight: 1.7 }}>
@@ -143,7 +143,7 @@ export default function ConfidentialitePage() {
           >
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
               <span style={{ fontSize: '24px' }}>{emoji}</span>
-              <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 700, fontFamily: "'Cormorant Garamond', serif", color: 'var(--t1)' }}>
+              <h2 style={{ margin: 0, fontSize: '18px', fontWeight: 700, fontFamily: "'Satoshi', sans-serif", color: 'var(--t1)' }}>
                 {title}
               </h2>
             </div>

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -302,12 +302,7 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
       )
     : [];
 
-  const medal = (rank: number) => {
-    if (rank === 1) return '🥇';
-    if (rank === 2) return '🥈';
-    if (rank === 3) return '🥉';
-    return String(rank);
-  };
+  const medal = (rank: number) => String(rank);
 
   // Mode recherche globale actif
   if (searchQ && searchQ.trim().length >= 2) {
@@ -321,11 +316,11 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
               <span>Aucun résultat pour « {searchQ} ».</span>
               {!user && (
                 <button
-                  className="btn-hero btn-hero-p"
-                  style={{ fontSize: '16px', padding: '14px 32px' }}
+                  className="btn-pri"
+                  style={{ fontSize: '14px', padding: '12px 28px', borderRadius: '8px' }}
                   onClick={() => onOpenAuth('signup')}
                 >
-                  🌿 Créez votre famille
+                  Créez votre famille
                 </button>
               )}
             </div>
@@ -346,7 +341,7 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
         {/* Tabs */}
         <div className="explorer-tabs-bar">
           <button className={`exp-tab${tab === 'iles' ? ' on' : ''}`} onClick={() => { setTab('iles'); setStep('iles'); setPersons([]); }}>Par Îles</button>
-          <button className={`exp-tab${tab === 'hinya' ? ' on' : ''}`} onClick={() => router.push('/registre/hinya')}>⬡ Par Hinya</button>
+          <button className={`exp-tab${tab === 'hinya' ? ' on' : ''}`} onClick={() => router.push('/registre/hinya')}>Par Hinya</button>
           <button className={`exp-tab${tab === 'creators' ? ' on' : ''}`} onClick={() => router.push('/registre/createur')}>Par Créateur</button>
           <button className={`exp-tab${tab === 'all' ? ' on' : ''}`} onClick={loadAll}>Tout le catalogue</button>
         </div>
@@ -385,7 +380,7 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
 
           {step === 'persons' && tab === 'iles' && localite && (
             <button className={`reg-sort-btn${groupHinya ? ' on' : ''}`} onClick={() => setGroupHinya(v => !v)}>
-              ⬡ {groupHinya ? 'Groupé par Hinya' : 'Grouper par Hinya'}
+              {groupHinya ? 'Groupé par Hinya' : 'Grouper par Hinya'}
             </button>
           )}
 
@@ -458,14 +453,14 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
                             const el = e.currentTarget as HTMLImageElement;
                             el.style.display = 'none';
                             const parent = el.parentElement;
-                            if (parent) parent.innerHTML = '<span style="font-size:64px;line-height:1">🏝️</span>';
+                            if (parent) parent.innerHTML = '<span style="font-size:13px;color:var(--t3)">—</span>';
                           }}
                         />
                       </div>
 
                       {/* Noms */}
                       <div style={{ marginBottom: '16px' }}>
-                        <div style={{ fontSize: '20px', fontWeight: 700, fontFamily: "'Cormorant Garamond', serif", color: accent, lineHeight: 1.2 }}>
+                        <div style={{ fontSize: '20px', fontWeight: 700, fontFamily: "'Satoshi', sans-serif", color: accent, lineHeight: 1.2 }}>
                           {nameShort}
                         </div>
                         <div style={{ fontSize: '12px', color: 'var(--t3)', marginTop: '3px', letterSpacing: '0.03em' }}>
@@ -521,11 +516,11 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
                     (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 20px rgba(20,18,13,0.08)';
                   }}
                 >
-                  <div style={{ textAlign: 'center', marginBottom: '16px', minHeight: '88px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '64px', lineHeight: 1 }}>
-                    🔍
+                  <div style={{ textAlign: 'center', marginBottom: '16px', minHeight: '88px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <svg width="40" height="40" fill="none" stroke="var(--t3)" strokeWidth="1.5" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
                   </div>
                   <div style={{ marginBottom: '16px' }}>
-                    <div style={{ fontSize: '20px', fontWeight: 700, fontFamily: "'Cormorant Garamond', serif", color: '#2e2e2e', lineHeight: 1.2 }}>
+                    <div style={{ fontSize: '20px', fontWeight: 700, fontFamily: "'Satoshi', sans-serif", color: '#2e2e2e', lineHeight: 1.2 }}>
                       Origine inconnue
                     </div>
                     <div style={{ fontSize: '12px', color: 'var(--t3)', marginTop: '3px' }}>Île non renseignée</div>
@@ -553,7 +548,6 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
                       style={{ display: 'flex', alignItems: 'center', gap: '8px', padding: '16px 0 10px', borderBottom: '1px solid rgba(255,255,255,0.4)', marginBottom: '12px', cursor: 'pointer' }}
                       onClick={() => router.push(`/registre/${ILE_SLUG_MAP[ile!]}/${slugify(reg)}`)}
                     >
-                      <span style={{ fontSize: '13px' }}>📍</span>
                       <span style={{ fontSize: '11px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.1em', color: 'var(--t3)' }}>{reg}</span>
                       <span style={{ fontSize: '11px', color: 'var(--t3)', marginLeft: 'auto' }}>{locs.length} localité{locs.length > 1 ? 's' : ''}</span>
                     </div>
@@ -586,7 +580,6 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
                             (e.currentTarget as HTMLDivElement).style.boxShadow = '0 4px 20px rgba(20,18,13,0.08)';
                           }}
                         >
-                          <span style={{ fontSize: '28px', lineHeight: 1 }}>🏘️</span>
                           <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--t1)', textAlign: 'center', lineHeight: 1.3 }}>{loc}</span>
                         </div>
                       ))}
@@ -610,7 +603,6 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
                       boxShadow: '0 4px 20px rgba(20,18,13,0.08)',
                     }}
                   >
-                    <span style={{ fontSize: '20px' }}>🔍</span>
                     <span style={{ fontSize: '13px', fontWeight: 600, color: 'var(--t1)' }}>Localité inconnue</span>
                   </div>
                 )}
@@ -631,7 +623,7 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
                   </div>
                 ))}
                 <div className="exp-card fadein" onClick={() => pickHinya('__sans__')}>
-                  <div className="exp-ico">❓</div>
+                  <div className="exp-ico">—</div>
                   <div className="exp-title">Sans Hinya</div>
                 </div>
               </div>
@@ -720,7 +712,7 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
                 }}>
                   <span style={{ fontSize: '32px' }}>{medal(creators.findIndex(c => c.id === selectedCreator.id) + 1)}</span>
                   <div>
-                    <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--t1)', fontFamily: "'Cormorant Garamond', serif" }}>
+                    <div style={{ fontSize: '18px', fontWeight: 700, color: 'var(--t1)', fontFamily: "'Satoshi', sans-serif" }}>
                       {selectedCreator.name}
                     </div>
                     <div style={{ fontSize: '13px', color: 'var(--t3)', marginTop: '3px' }}>
@@ -769,7 +761,6 @@ export default function RegistreView({ onShowPerson, onOpenAuth }: RegistreViewP
                       .map(([label, grpPersons]) => (
                         <div key={label} style={{ marginBottom: '32px' }}>
                           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', padding: '0 16px 12px 16px', borderBottom: '2px solid var(--green-bg)', marginBottom: '12px' }}>
-                            <span style={{ fontSize: '16px' }}>⬡</span>
                             <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--green)' }}>{label}</span>
                             <span style={{ fontSize: '11px', color: 'var(--t3)', marginLeft: 'auto' }}>{grpPersons.length} personne{grpPersons.length !== 1 ? 's' : ''}</span>
                           </div>

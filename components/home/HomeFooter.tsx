@@ -4,35 +4,26 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function HomeFooter() {
-
   return (
-    <footer className="footer">
-      <div className="footer-inner">
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          <Image
-            src="/logo.png"
-            alt="Aswilia"
-            width={160}
-            height={44}
-            style={{ objectFit: 'contain', width: 'auto', height: '40px' }}
-          />
-          <div style={{ fontSize: '13px', color: 'var(--t2)', whiteSpace: 'nowrap' }}>
-            Mémoire généalogique comorienne · Archipel des Comores
+    <footer className="ln-footer">
+      <div className="ln-footer-inner">
+        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+          <div className="ln-footer-logo">
+            <Image src="/logo.png" alt="Aswilia" width={120} height={52} style={{ objectFit: 'contain', height: '52px', width: 'auto', filter: 'brightness(0) invert(1)' }} />
           </div>
+          <p className="ln-footer-tagline">
+            Mémoire généalogique comorienne.<br />
+            Archipel des Comores.
+          </p>
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px', flexWrap: 'wrap' }}>
-          <Link
-            href="/confidentialite"
-            style={{ fontSize: '12px', color: 'var(--t3)', textDecoration: 'none', transition: 'color .15s' }}
-            onMouseEnter={e => (e.currentTarget.style.color = 'var(--green)')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'var(--t3)')}
-          >
-            Confidentialité
-          </Link>
-          <div style={{ fontSize: '13px', color: 'var(--t2)', whiteSpace: 'nowrap' }}>
-            Développé par U-Data
-          </div>
+        <div className="ln-footer-links">
+          <Link href="/chroniques" className="ln-footer-link">Chroniques</Link>
+          <Link href="/about" className="ln-footer-link">À propos</Link>
+          <Link href="/confidentialite" className="ln-footer-link">Confidentialité</Link>
         </div>
+      </div>
+      <div className="ln-footer-bottom">
+        <span>© {new Date().getFullYear()} Aswilia · Développé par U-Data</span>
       </div>
     </footer>
   );

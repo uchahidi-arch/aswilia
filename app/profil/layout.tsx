@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import AppHeader from '@/components/app/AppHeader';
+import HomeNav from '@/components/home/HomeNav';
 import AuthModal from '@/components/auth/AuthModal';
 import Toast from '@/components/ui/Toast';
 
@@ -12,7 +12,7 @@ export default function ProfilLayout({ children }: { children: React.ReactNode }
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh', overflow: 'hidden' }}>
       <Toast />
-      <AppHeader
+      <HomeNav
         onOpenAuth={(tab) => { setAuthTab(tab); setAuthOpen(true); }}
       />
       <div className="app-main" style={{ position: 'relative', overflowY: 'auto' }}>

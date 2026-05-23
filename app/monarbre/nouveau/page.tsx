@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect, useRef, useCallback, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
@@ -174,7 +174,7 @@ function NouveauForm() {
     <div style={{ flex: 1, overflowY: 'auto', padding: '24px', maxWidth: 540, margin: '0 auto', width: '100%' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 20 }}>
         <button className="btn btn-sec" style={{ fontSize: 11 }} onClick={() => router.back()}>⬅ Retour</button>
-        <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 700, margin: 0 }}>
+        <h1 style={{ fontFamily: "'Satoshi', sans-serif", fontSize: 22, fontWeight: 700, margin: 0 }}>
           Nouvelle personne
         </h1>
       </div>
@@ -191,8 +191,8 @@ function NouveauForm() {
       <div className="f-row">
         <label className="f-lbl">Genre *</label>
         <div className="g-row">
-          <button className={`g-btn${genre === 'M' ? ' sel' : ''}`} type="button" onClick={() => setGenre('M')}>♂ Homme</button>
-          <button className={`g-btn${genre === 'F' ? ' sel' : ''}`} type="button" onClick={() => setGenre('F')}>♀ Femme</button>
+          <button className={`g-btn${genre === 'M' ? ' sel' : ''}`} type="button" onClick={() => setGenre('M')}>Homme</button>
+          <button className={`g-btn${genre === 'F' ? ' sel' : ''}`} type="button" onClick={() => setGenre('F')}>Femme</button>
         </div>
       </div>
 
@@ -211,7 +211,7 @@ function NouveauForm() {
       {/* Doublons */}
       {doublons.length > 0 && (
         <div style={{ background: '#fff8f1', border: '1px solid #fbd38d', padding: '10px 12px', marginBottom: 12, borderRadius: 6, fontSize: 12 }}>
-          <div style={{ fontWeight: 700, color: '#b45309', marginBottom: 8 }}>⚠️ Cette personne existe peut-être déjà !</div>
+          <div style={{ fontWeight: 700, color: '#b45309', marginBottom: 8 }}>Cette personne existe peut-être déjà.</div>
           {doublons.map((m: any) => (
             <div key={m.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
               <span style={{ fontWeight: 600 }}>{m.prenom} {m.nom || ''}{m.localite ? ' — ' + m.localite : ''}</span>
@@ -227,8 +227,8 @@ function NouveauForm() {
       <div className="f-row">
         <label className="f-lbl">Statut *</label>
         <div className="g-row">
-          <button className={`g-btn${status === 'alive' ? ' sel' : ''}`} type="button" onClick={() => setStatus('alive')}>🟢 En vie</button>
-          <button className={`g-btn${status === 'dead'  ? ' sel' : ''}`} type="button" onClick={() => setStatus('dead')}>🕊️ Décédé·e</button>
+          <button className={`g-btn${status === 'alive' ? ' sel' : ''}`} type="button" onClick={() => setStatus('alive')}>En vie</button>
+          <button className={`g-btn${status === 'dead'  ? ' sel' : ''}`} type="button" onClick={() => setStatus('dead')}>Décédé·e</button>
         </div>
       </div>
 

@@ -41,10 +41,10 @@ function GpCard({ p }: { p: P }) {
       <div className="parent-prenom" style={{ fontSize: 11 }}>{p.prenom}</div>
       <div className="parent-nom" style={{ fontSize: 10 }}>{p.nom}</div>
       {p.hinya && (
-        <div style={{ fontSize: 9, color: 'var(--gold)', marginTop: 3 }}>⬡ {p.hinya}</div>
+        <div style={{ fontSize: 9, color: 'var(--gold)', marginTop: 3 }}>{p.hinya}</div>
       )}
       <div style={{ fontSize: 9, marginTop: 3, color: p.deceased ? 'var(--t3)' : '#2D7A54' }}>
-        {p.deceased ? '🕊️ Décédé·e' : '🟢 En vie'}
+        {p.deceased ? 'Décédé·e' : 'En vie'}
       </div>
     </div>
   );
@@ -61,10 +61,10 @@ function ParentCard({ p }: { p: P }) {
       <div className="parent-prenom">{p.prenom}</div>
       <div className="parent-nom">{p.nom}</div>
       {p.hinya && (
-        <div style={{ fontSize: 9, color: 'var(--gold)', marginTop: 3 }}>⬡ {p.hinya}</div>
+        <div style={{ fontSize: 9, color: 'var(--gold)', marginTop: 3 }}>{p.hinya}</div>
       )}
       <div style={{ fontSize: 9, marginTop: 3, color: p.deceased ? 'var(--t3)' : '#2D7A54' }}>
-        {p.deceased ? '🕊️ Décédé·e' : '🟢 En vie'}
+        {p.deceased ? 'Décédé·e' : 'En vie'}
       </div>
     </div>
   );
@@ -78,20 +78,17 @@ export default function DemoTree() {
         {/* En-tête */}
         <div style={{ textAlign: 'center', marginBottom: 40 }}>
           <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'var(--green-bg)', border: '1px solid var(--green-bd)',
-            borderRadius: 100, padding: '4px 14px', fontSize: 11, fontWeight: 600,
-            color: 'var(--green)', marginBottom: 14,
+            fontSize: 11, fontWeight: 700, color: 'var(--green)',
+            textTransform: 'uppercase', letterSpacing: '.1em', marginBottom: 14,
           }}>
-            <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--green)', display: 'inline-block' }} />
             Exemple d'arbre
           </div>
           <h2 style={{
-            fontFamily: "'Cormorant Garamond', serif",
+            fontFamily: "'Satoshi', sans-serif",
             fontSize: 'clamp(22px, 4vw, 32px)',
             fontWeight: 600, color: 'var(--t1)', marginBottom: 10,
           }}>
-            La famille <em>Msafoumou</em>
+            La famille Msafoumou
           </h2>
           <p style={{ fontSize: 13, color: 'var(--t2)', maxWidth: 420, margin: '0 auto' }}>
             Chaque arbre préserve trois générations : grands-parents, parents et enfants, avec la lignée et le foyer familial.
@@ -155,13 +152,13 @@ export default function DemoTree() {
               <div className="focus-prenom">Abdillah</div>
               <div className="focus-nom">MSAFOUMOU</div>
               <div className="focus-tags" style={{ marginTop: 8 }}>
-                <span className="f-tag dead">🕊️ Décédé·e</span>
+                <span className="f-tag dead">Décédé·e</span>
               </div>
               <div className="focus-tags">
-                <span className="f-tag hinya">⬡ Hinya Matsa Pirusa</span>
+                <span className="f-tag hinya">Hinya Matsa Pirusa</span>
               </div>
               <div className="focus-tags">
-                <span className="f-tag loc">📍 Moroni</span>
+                <span className="f-tag loc">Moroni</span>
               </div>
             </div>
           </div>
